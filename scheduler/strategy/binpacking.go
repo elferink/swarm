@@ -22,8 +22,8 @@ func (p *BinPackingPlacementStrategy) PlaceContainer(config *dockerclient.Contai
 	weightedNodes := weightedNodeList{}
 
 	for _, node := range nodes {
-		nodeMemory := node.UsableMemory()
-		nodeCpus := node.UsableCpus()
+		nodeMemory := node.TotalMemory()
+		nodeCpus := node.TotalCpus()
 
 		// Skip nodes that are smaller than the requested resources.
 		if nodeMemory < int64(config.Memory) || nodeCpus < config.CpuShares {
@@ -36,10 +36,10 @@ func (p *BinPackingPlacementStrategy) PlaceContainer(config *dockerclient.Contai
 		)
 
 		if config.CpuShares > 0 {
-			cpuScore = (node.ReservedCpus() + config.CpuShares) * 100 / nodeCpus
+			cpuScore = (node.UsedCpus() + config.CpuShares) * 100 / nodeCpus
 		}
 		if config.Memory > 0 {
-			memoryScore = (node.ReservedMemory() + config.Memory) * 100 / nodeMemory
+			memoryScore = (node.UsedMemory() + config.Memory) * 100 / nodeMemory
 		}
 
 		if cpuScore <= 100 && memoryScore <= 100 {
@@ -54,33 +54,5 @@ func (p *BinPackingPlacementStrategy) PlaceContainer(config *dockerclient.Contai
 	// sort by highest weight
 	sort.Sort(sort.Reverse(weightedNodes))
 
-<<<<<<< HEAD
-	return scores[0].node, nil
-}
-
-type score struct {
-	node  *cluster.Node
-	score int64
-}
-
-type scores []*score
-
-func (s scores) Len() int {
-	return len(s)
-}
-
-func (s scores) Swap(i, j int) {
-	s[i], s[j] = s[j], s[i]
-}
-
-func (s scores) Less(i, j int) bool {
-	var (
-		ip = s[i]
-		jp = s[j]
-	)
-
-	return ip.score > jp.score
-=======
 	return weightedNodes[0].Node, nil
->>>>>>> refactor score to weightedNode structure
 }
