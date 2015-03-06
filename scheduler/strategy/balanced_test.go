@@ -22,7 +22,7 @@ func TestBalancedPlaceContainerMemory(t *testing.T) {
 	assert.NoError(t, err)
 	assert.NoError(t, c1node.AddContainer(createContainer("c1", config)))
 
-	assert.Equal(t, c1node.ReservedMemory(), 1024*1024*1024)
+	assert.Equal(t, c1node.UsedMemory(), 1024*1024*1024)
 
 	// add another container 1G
 	config = createConfig(1, 1)
@@ -30,7 +30,7 @@ func TestBalancedPlaceContainerMemory(t *testing.T) {
 	assert.NoError(t, err)
 	assert.NoError(t, c2node.AddContainer(createContainer("c2", config)))
 
-	assert.Equal(t, c2node.ReservedMemory(), 1024*1024*1024)
+	assert.Equal(t, c2node.UsedMemory(), 1024*1024*1024)
 
 	// check that both containers ended on different nodes
 	assert.NotEqual(t, c1node.ID, c2node.ID, "")
@@ -51,14 +51,14 @@ func TestBalancedPlaceContainerCPU(t *testing.T) {
 	assert.NoError(t, err)
 	assert.NoError(t, c1node.AddContainer(createContainer("c1", config)))
 
-	assert.Equal(t, c1node.ReservedCpus(), 1)
+	assert.Equal(t, c1node.UsedCpus(), 1)
 
 	// add another container 1CPU
 	config = createConfig(0, 1)
 	c2node, err := s.PlaceContainer(config, nodes)
 	assert.NoError(t, err)
 	assert.NoError(t, c2node.AddContainer(createContainer("c2", config)))
-	assert.Equal(t, c2node.ReservedCpus(), 1)
+	assert.Equal(t, c2node.UsedCpus(), 1)
 
 	// check that both containers ended on different nodes
 	assert.NotEqual(t, c1node.ID, c2node.ID, "")

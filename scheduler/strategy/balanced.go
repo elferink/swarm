@@ -1,10 +1,15 @@
 package strategy
 
 import (
+	"errors"
 	"sort"
 
 	"github.com/docker/swarm/cluster"
 	"github.com/samalba/dockerclient"
+)
+
+var (
+	ErrNoResourcesAvailable = errors.New("no resources available to schedule container")
 )
 
 type BalancedPlacementStrategy struct {
@@ -15,60 +20,46 @@ func (p *BalancedPlacementStrategy) Initialize() error {
 	return nil
 }
 
-func (p *BalancedPlacementStrategy) PlaceContainer(config *dockerclient.ContainerConfig, nodes []*cluster.Node) (*cluster.Node, error) {
-	scores := balancedScores{}
+func (p *BalancedPlacementStrategy) PlaceContainer(config *dockerclient.ContainerConfig, nodes []cluster.Node) (cluster.Node, error) {
+	weightedNodes := weightedNodeList{}
 
 	for _, node := range nodes {
-		nodeMemory := node.UsableMemory()
-		nodeCpus := node.UsableCpus()
+		nodeMemory := node.TotalMemory()
+		nodeCpus := node.TotalCpus()
 
 		// Skip nodes that are smaller than the requested resources.
 		if nodeMemory < int64(config.Memory) || nodeCpus < config.CpuShares {
 			continue
 		}
 
-		var cpuScore = (node.ReservedCpus() + config.CpuShares) * 100 / nodeCpus
-		var memoryScore = (node.ReservedMemory() + config.Memory) * 100 / nodeMemory
-		var containerScore = int64(len(node.Containers())) + 1
+		var (
+			cpuScore    int64 = 100
+			memoryScore int64 = 100
+		)
 
-		var total = cpuScore + memoryScore + containerScore
+		if config.CpuShares > 0 {
+			cpuScore = (node.UsedCpus() + config.CpuShares) * 100 / nodeCpus
+		}
+		if config.Memory > 0 {
+			memoryScore = (node.UsedMemory() + config.Memory) * 100 / nodeMemory
+		}
 
 		if cpuScore > 100 || memoryScore > 100 {
 			continue
 		}
 
-		scores = append(scores, &balancedScore{node: node, score: total})
+		var containerScore = int64(len(node.Containers())) + 1
+		var total = cpuScore + memoryScore + containerScore
+
+		weightedNodes = append(weightedNodes, &balancedScore{node: node, score: total})
 	}
 
-	if len(scores) == 0 {
+	if len(weightedNodes) == 0 {
 		return nil, ErrNoResourcesAvailable
 	}
 
-	sort.Sort(scores)
+	// sort by highest weight
+	sort.Sort(sort.Reverse(weightedNodes))
 
-	return scores[0].node, nil
-}
-
-type balancedScore struct {
-	node  *cluster.Node
-	score int64
-}
-
-type balancedScores []*balancedScore
-
-func (s balancedScores) Len() int {
-	return len(s)
-}
-
-func (s balancedScores) Swap(i, j int) {
-	s[i], s[j] = s[j], s[i]
-}
-
-func (s balancedScores) Less(i, j int) bool {
-	var (
-		ip = s[i]
-		jp = s[j]
-	)
-
-	return ip.score < jp.score
+	return weightedNodes[0].Node, nil
 }
