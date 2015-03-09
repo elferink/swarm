@@ -5,7 +5,7 @@ import (
 	"strings"
 
 	log "github.com/Sirupsen/logrus"
-	"github.com/docker/swarm/cluster"
+	"github.com/elferink/swarm/cluster"
 	"github.com/samalba/dockerclient"
 )
 

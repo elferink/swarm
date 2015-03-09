@@ -3,7 +3,7 @@ package nodes
 import (
 	"strings"
 
-	"github.com/docker/swarm/discovery"
+	"github.com/elferink/swarm/discovery"
 )
 
 type NodesDiscoveryService struct {

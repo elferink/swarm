@@ -1,15 +1,10 @@
 package strategy
 
 import (
-	"errors"
 	"sort"
 
-	"github.com/docker/swarm/cluster"
+	"github.com/elferink/swarm/cluster"
 	"github.com/samalba/dockerclient"
-)
-
-var (
-	ErrNoResourcesAvailable = errors.New("no resources available to schedule container")
 )
 
 type BinPackingPlacementStrategy struct{}

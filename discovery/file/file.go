@@ -5,7 +5,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/docker/swarm/discovery"
+	"github.com/elferink/swarm/discovery"
 )
 
 type FileDiscoveryService struct {

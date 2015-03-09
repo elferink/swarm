@@ -8,7 +8,7 @@ import (
 	"strings"
 
 	log "github.com/Sirupsen/logrus"
-	"github.com/docker/swarm/cluster"
+	"github.com/elferink/swarm/cluster"
 )
 
 const DefaultDockerPort = ":2375"

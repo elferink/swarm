@@ -7,7 +7,7 @@ import (
 
 	log "github.com/Sirupsen/logrus"
 	"github.com/coreos/go-etcd/etcd"
-	"github.com/docker/swarm/discovery"
+	"github.com/elferink/swarm/discovery"
 )
 
 type EtcdDiscoveryService struct {

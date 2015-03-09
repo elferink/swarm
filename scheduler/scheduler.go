@@ -1,9 +1,9 @@
 package scheduler
 
 import (
-	"github.com/docker/swarm/cluster"
-	"github.com/docker/swarm/scheduler/filter"
-	"github.com/docker/swarm/scheduler/strategy"
+	"github.com/elferink/swarm/cluster"
+	"github.com/elferink/swarm/scheduler/filter"
+	"github.com/elferink/swarm/scheduler/strategy"
 	"github.com/samalba/dockerclient"
 )
 

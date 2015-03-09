@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/docker/swarm/cluster"
+	"github.com/elferink/swarm/cluster"
 	"github.com/samalba/dockerclient"
 )
 

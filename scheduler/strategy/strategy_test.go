@@ -1,7 +1,7 @@
 package strategy
 
 import (
-	"github.com/docker/swarm/cluster"
+	"github.com/elferink/swarm/cluster"
 	"github.com/samalba/dockerclient"
 )
 

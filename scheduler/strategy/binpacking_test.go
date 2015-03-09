@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"testing"
 
-	"github.com/docker/swarm/cluster"
+	"github.com/elferink/swarm/cluster"
 	"github.com/stretchr/testify/assert"
 )
 

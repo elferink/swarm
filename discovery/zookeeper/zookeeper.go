@@ -7,7 +7,7 @@ import (
 	"time"
 
 	log "github.com/Sirupsen/logrus"
-	"github.com/docker/swarm/discovery"
+	"github.com/elferink/swarm/discovery"
 	"github.com/samuel/go-zookeeper/zk"
 )
 

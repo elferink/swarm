@@ -4,7 +4,7 @@ import (
 	"errors"
 	"sort"
 
-	"github.com/docker/swarm/cluster"
+	"github.com/elferink/swarm/cluster"
 	"github.com/samalba/dockerclient"
 )
 
@@ -51,7 +51,7 @@ func (p *BalancedPlacementStrategy) PlaceContainer(config *dockerclient.Containe
 		var containerScore = int64(len(node.Containers())) + 1
 		var total = cpuScore + memoryScore + containerScore
 
-		weightedNodes = append(weightedNodes, &balancedScore{node: node, score: total})
+		weightedNodes = append(weightedNodes, &weightedNode{Node: node, Weight: total})
 	}
 
 	if len(weightedNodes) == 0 {

@@ -3,7 +3,7 @@ package filter
 import (
 	"errors"
 
-	"github.com/docker/swarm/cluster"
+	"github.com/elferink/swarm/cluster"
 	"github.com/samalba/dockerclient"
 )
 

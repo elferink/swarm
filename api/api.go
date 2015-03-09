@@ -14,9 +14,9 @@ import (
 
 	log "github.com/Sirupsen/logrus"
 	dockerfilters "github.com/docker/docker/pkg/parsers/filters"
-	"github.com/docker/swarm/cluster"
-	"github.com/docker/swarm/scheduler/filter"
-	"github.com/docker/swarm/version"
+	"github.com/elferink/swarm/cluster"
+	"github.com/elferink/swarm/scheduler/filter"
+	"github.com/elferink/swarm/version"
 	"github.com/gorilla/mux"
 	"github.com/samalba/dockerclient"
 )

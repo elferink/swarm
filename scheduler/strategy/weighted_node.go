@@ -1,6 +1,6 @@
 package strategy
 
-import "github.com/docker/swarm/cluster"
+import "github.com/elferink/swarm/cluster"
 
 // WeightedNode represents a node in the cluster with a given weight, typically used for sorting
 // purposes.

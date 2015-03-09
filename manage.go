@@ -9,13 +9,13 @@ import (
 
 	log "github.com/Sirupsen/logrus"
 	"github.com/codegangsta/cli"
-	"github.com/docker/swarm/api"
-	"github.com/docker/swarm/cluster"
-	"github.com/docker/swarm/cluster/swarm"
-	"github.com/docker/swarm/scheduler"
-	"github.com/docker/swarm/scheduler/filter"
-	"github.com/docker/swarm/scheduler/strategy"
-	"github.com/docker/swarm/state"
+	"github.com/elferink/swarm/api"
+	"github.com/elferink/swarm/cluster"
+	"github.com/elferink/swarm/cluster/swarm"
+	"github.com/elferink/swarm/scheduler"
+	"github.com/elferink/swarm/scheduler/filter"
+	"github.com/elferink/swarm/scheduler/strategy"
+	"github.com/elferink/swarm/state"
 )
 
 type logHandler struct {

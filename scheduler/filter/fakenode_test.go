@@ -1,6 +1,6 @@
 package filter
 
-import "github.com/docker/swarm/cluster"
+import "github.com/elferink/swarm/cluster"
 
 type FakeNode struct {
 	id         string

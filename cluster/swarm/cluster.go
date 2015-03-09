@@ -6,10 +6,10 @@ import (
 
 	log "github.com/Sirupsen/logrus"
 	"github.com/docker/docker/pkg/units"
-	"github.com/docker/swarm/cluster"
-	"github.com/docker/swarm/discovery"
-	"github.com/docker/swarm/scheduler"
-	"github.com/docker/swarm/state"
+	"github.com/elferink/swarm/cluster"
+	"github.com/elferink/swarm/discovery"
+	"github.com/elferink/swarm/scheduler"
+	"github.com/elferink/swarm/state"
 	"github.com/samalba/dockerclient"
 )
 

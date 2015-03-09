@@ -10,7 +10,7 @@ import (
 	"strings"
 
 	log "github.com/Sirupsen/logrus"
-	"github.com/docker/swarm/cluster"
+	"github.com/elferink/swarm/cluster"
 )
 
 func newClientAndScheme(tlsConfig *tls.Config) (*http.Client, string) {

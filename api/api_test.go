@@ -2,8 +2,8 @@ package api
 
 import (
 	"encoding/json"
-	"github.com/docker/swarm/cluster"
-	"github.com/docker/swarm/version"
+	"github.com/elferink/swarm/cluster"
+	"github.com/elferink/swarm/version"
 	"github.com/stretchr/testify/assert"
 	"net/http"
 	"net/http/httptest"

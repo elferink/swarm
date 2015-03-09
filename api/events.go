@@ -6,7 +6,7 @@ import (
 	"net/http"
 	"sync"
 
-	"github.com/docker/swarm/cluster"
+	"github.com/elferink/swarm/cluster"
 )
 
 type eventsHandler struct {

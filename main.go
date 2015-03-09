@@ -7,14 +7,14 @@ import (
 
 	log "github.com/Sirupsen/logrus"
 	"github.com/codegangsta/cli"
-	"github.com/docker/swarm/discovery"
-	_ "github.com/docker/swarm/discovery/consul"
-	_ "github.com/docker/swarm/discovery/etcd"
-	_ "github.com/docker/swarm/discovery/file"
-	_ "github.com/docker/swarm/discovery/nodes"
-	"github.com/docker/swarm/discovery/token"
-	_ "github.com/docker/swarm/discovery/zookeeper"
-	"github.com/docker/swarm/version"
+	"github.com/elferink/swarm/discovery"
+	_ "github.com/elferink/swarm/discovery/consul"
+	_ "github.com/elferink/swarm/discovery/etcd"
+	_ "github.com/elferink/swarm/discovery/file"
+	_ "github.com/elferink/swarm/discovery/nodes"
+	"github.com/elferink/swarm/discovery/token"
+	_ "github.com/elferink/swarm/discovery/zookeeper"
+	"github.com/elferink/swarm/version"
 )
 
 func main() {

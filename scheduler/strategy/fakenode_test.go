@@ -3,7 +3,7 @@ package strategy
 import (
 	"errors"
 
-	"github.com/docker/swarm/cluster"
+	"github.com/elferink/swarm/cluster"
 )
 
 type FakeNode struct {
