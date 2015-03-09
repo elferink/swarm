@@ -21,7 +21,7 @@ func (p *BalancedPlacementStrategy) Initialize() error {
 }
 
 func (p *BalancedPlacementStrategy) PlaceContainer(config *dockerclient.ContainerConfig, nodes []cluster.Node) (cluster.Node, error) {
-	weightedNodes := weightedNodeList{}
+	weightedNodes := MultiWeightedNodeList{}
 
 	for _, node := range nodes {
 		nodeMemory := node.TotalMemory()
@@ -33,33 +33,32 @@ func (p *BalancedPlacementStrategy) PlaceContainer(config *dockerclient.Containe
 		}
 
 		var (
-			cpuScore    int64 = 100
-			memoryScore int64 = 100
+			cpuWeight    int = 100
+			memoryWeight int = 100
 		)
 
 		if config.CpuShares > 0 {
-			cpuScore = (node.UsedCpus() + config.CpuShares) * 100 / nodeCpus
+			cpuWeight = (node.UsedCpus() + config.CpuShares) * 100 / nodeCpus
 		}
 		if config.Memory > 0 {
-			memoryScore = (node.UsedMemory() + config.Memory) * 100 / nodeMemory
+			memoryWeight = (node.UsedMemory() + config.Memory) * 100 / nodeMemory
 		}
 
-		if cpuScore > 100 || memoryScore > 100 {
+		if cpuWeight > 100 || memoryWeight > 100 {
 			continue
 		}
 
-		var containerScore = int64(len(node.Containers())) + 1
-		var total = cpuScore + memoryScore + containerScore
+		var container = len(node.Containers())
+		var cpuAndMem = cpuWeight + memoryWeight
 
-		weightedNodes = append(weightedNodes, &weightedNode{Node: node, Weight: total})
+		weightedNodes = append(weightedNodes, &MultiWeightedNode{Node: node, CpuAndMemoryWeight: cpuAndMem, ContainerWeight: container})
 	}
 
 	if len(weightedNodes) == 0 {
 		return nil, ErrNoResourcesAvailable
 	}
 
-	// sort by highest weight
-	sort.Sort(sort.Reverse(weightedNodes))
+	sort.Sort(weightedNodes)
 
 	return weightedNodes[0].Node, nil
 }
