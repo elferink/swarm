@@ -27,8 +27,8 @@ func (n MultiWeightedNodeList) Less(i, j int) bool {
 		jp = n[j]
 	)
 
-	if i.ContainerWeight != j.ContainerWeight {
-		return i.ContainerWeight < j.ContainerWeight
+	if ip.ContainerWeight != jp.ContainerWeight {
+		return ip.ContainerWeight < jp.ContainerWeight
 	}
-	return i.CpuAndMemoryWeight < j.CpuAndMemoryWeight
+	return ip.CpuAndMemoryWeight < jp.CpuAndMemoryWeight
 }
