@@ -7,8 +7,8 @@ import "github.com/elferink/swarm/cluster"
 type MultiWeightedNode struct {
 	Node cluster.Node
 	// Weight is the inherent value of this node.
-	CpuAndMemoryWeight int
-	ContainerWeight int
+	CpuAndMemoryWeight int64
+	ContainerWeight int64
 }
 
 type MultiWeightedNodeList []*MultiWeightedNode

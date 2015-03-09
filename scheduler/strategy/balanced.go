@@ -33,8 +33,8 @@ func (p *BalancedPlacementStrategy) PlaceContainer(config *dockerclient.Containe
 		}
 
 		var (
-			cpuWeight    int = 100
-			memoryWeight int = 100
+			cpuWeight    int64 = 100
+			memoryWeight int64 = 100
 		)
 
 		if config.CpuShares > 0 {
@@ -48,7 +48,7 @@ func (p *BalancedPlacementStrategy) PlaceContainer(config *dockerclient.Containe
 			continue
 		}
 
-		var container = len(node.Containers())
+		var container = int64(len(node.Containers()))
 		var cpuAndMem = cpuWeight + memoryWeight
 
 		weightedNodes = append(weightedNodes, &MultiWeightedNode{Node: node, CpuAndMemoryWeight: cpuAndMem, ContainerWeight: container})
